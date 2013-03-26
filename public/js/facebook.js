@@ -37,11 +37,11 @@ function login() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            testAPI();
+            //testAPI();
         } else {
             // cancelled
         }
-    });
+    }, {scope:'publish_actions'});
 }
 
 function testAPI() {
