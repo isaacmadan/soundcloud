@@ -44,6 +44,38 @@
                 <h1>Hello, world!</h1>
                 <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
                 <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+
+                <a class="btn btn-primary btn-large" onclick="connect()">Connect to SoundCloud &raquo;</a>
+
+                <div class="row">
+                	<div class="span2"><h3>
+                		<img id="song_image" src="" />
+                	</h3>
+                	</div>
+                	<div class="span6">
+	               		<h3 id="title">Song title</h3>
+	                	<h4 id="detail">Detail</h4>
+
+	                	<div id="waveform-container">
+	                		<div id="waveform"></div>
+	                		<div id="waveform-progress"></div>
+                		</div>
+
+                	</div>
+            	</div>
+
+            	<div class="row">
+            		<div class="span2"></div>
+            		<div class="span6"><h4 id="status">Loading</h4></div>
+            	</div>
+
+            	<div class="row">
+            		<button onclick="" class="btn btn-primary"><i class="icon-repeat icon-white"></i></button>
+	                <button onclick="play()" class="btn btn-primary"><i class="icon-play icon-white"></i></button>
+	                <button onclick="pause()" class="btn btn-primary"><i class="icon-pause icon-white"></i></button>
+	                <button onclick="stop()" class="btn btn-primary"><i class="icon-stop icon-white"></i></button>
+            	</div>
+
             </div>
 
             <hr>
@@ -67,5 +99,10 @@
             g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
+
+        <!-- custom scripts -->
+        <script src="//connect.soundcloud.com/sdk.js"></script>
+		<script src="js/music.js"></script>
+
     </body>
 </html>

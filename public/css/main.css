@@ -4,7 +4,33 @@
    Author's custom styles
    ========================================================================== */
 
+#waveform_image {
+	background-color: black;
+	max-width: 300px;
+}
 
+#waveform-container {
+	background-color: black;
+	clear: both;
+	height: 40px;
+}
+
+#waveform {
+	
+	height: 40px;
+	background-size: 100% 100%;
+	position: relative;
+	z-index: 2;
+}
+
+#waveform-progress {
+	background-color: rgb(64, 170, 230);
+	width: 0%;
+	height: 40px;
+	position: relative;
+	top: -40px;
+	z-index: 1;
+}
 
 
 
