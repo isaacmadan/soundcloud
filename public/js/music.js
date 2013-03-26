@@ -1,10 +1,23 @@
 $(function() {
- run();
+	setupDOM();
+	run();
 })
 
 var URL = "https://soundcloud.com/lordemusic/bravado-fffrrannno-remix";
 var song;
 var sound;
+var authenticated = false;
+var user;
+
+function setupDOM() {
+	$("#favorite").popover();
+	if(user) {
+		//alert("logged in");
+	}
+	else {
+		//alert("not logged in");
+	}
+}
 
 function run() {
 	SC.initialize({
@@ -93,9 +106,22 @@ function stop() {
 
 function connect() {
 	SC.connect(function() {
-
+		SC.get('/me', function(me) { 
+    		user = me;
+    		$("#authenticator").html(me.username);
+  		});
 	});
 }
+
+function favorite() {
+	if(user) {
+		$("#favorite").attr('data-original-title',"Added to your SoundCloud favorites");
+		//$("#favorite").popover('destroy');
+	}
+	else {
+	}
+}
+
 
 
 

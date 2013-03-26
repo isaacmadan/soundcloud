@@ -23,6 +23,12 @@
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
+
+    	<!-- facebook -->
+    	<div id="fb-root"></div>
+		<script src="js/facebook.js"></script>
+		<!-- end facebook -->
+
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -41,11 +47,10 @@
 
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="hero-unit">
-                <h1>Hello, world!</h1>
-                <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-                <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-
+                
+                <div id="authenticator">
                 <a class="btn btn-primary btn-large" onclick="connect()">Connect to SoundCloud &raquo;</a>
+            	</div>
 
                 <div class="row">
                 	<div class="span2"><h3>
@@ -74,6 +79,7 @@
 	                <button onclick="play()" class="btn btn-primary"><i class="icon-play icon-white"></i></button>
 	                <button onclick="pause()" class="btn btn-primary"><i class="icon-pause icon-white"></i></button>
 	                <button onclick="stop()" class="btn btn-primary"><i class="icon-stop icon-white"></i></button>
+	                <button id="favorite" onclick="favorite()" class="btn btn-primary" data-toggle="popover" data-placement="bottom" title="" data-original-title="You need to connect to SoundCloud first."><i class="icon-heart icon-white"></i></button>
             	</div>
 
             </div>
