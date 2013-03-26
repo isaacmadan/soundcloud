@@ -11,6 +11,8 @@ var user;
 
 function setupDOM() {
 	$("#favorite").popover();
+	$("#why_connect").tooltip();
+	$(".song-controls").attr("disabled","disabled");
 	if(user) {
 		//alert("logged in");
 	}
@@ -53,6 +55,7 @@ function stream(id) {
 		sound.load({
 			onload: function() {
 				$("#status").html("Playing");
+				$(".song-controls").removeAttr("disabled");
 		    	sound.setPosition(sound.duration * 0.16);
 		  		setWaveformProgress(sound.position, sound.duration);
 		    	console.log("Set intial to: " + sound.position);
@@ -93,15 +96,33 @@ function stream(id) {
 }
 
 function play() {
-	sound.play();
+	if(sound.paused) {
+		sound.resume();
+	}
+	else {
+		if(sound.playState != 1) {
+			sound.play();
+		}
+	}
 }
 
 function pause() {
-	sound.pause();
+	if(!sound.paused) {
+		sound.pause();
+	}
 }
 
 function stop() {
 	sound.stop();
+}
+
+function replay() {
+	if(song) {
+		sound.stop();
+		$("#status").html("Reloading");
+		$(".song-controls").attr("disabled","disabled");
+		stream(song.id);
+	}
 }
 
 function connect() {
@@ -120,6 +141,12 @@ function favorite() {
 	}
 	else {
 	}
+}
+
+function playWholeTrack() {
+	sound.stop();
+	sound.setPosition(0);
+	sound.play();
 }
 
 

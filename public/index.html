@@ -39,6 +39,16 @@
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="#">Project name</a>
+                    <ul class="nav pull-right">
+                    	<li id="authenticator">
+                			<div class="btn btn-primary" onclick="connect()">Connect to SoundCloud &raquo;</div>
+            			</li>
+            			<li>&nbsp;&nbsp;</li>
+            			<li id="facebook">
+            				<div class="btn btn-primary" onclick="connect()">Connect to Facebook &raquo;</div>
+        				</li>
+        				<li><a id="why_connect" data-toggle="tooltip" data-placement="bottom" data-original-title="Connecting to SoundCloud allows you to like songs. Connecting to Facebook allows you to share with friends.">Why?</a></li>
+                	</div>
                 </div>
             </div>
         </div>
@@ -47,10 +57,6 @@
 
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="hero-unit">
-                
-                <div id="authenticator">
-                <a class="btn btn-primary btn-large" onclick="connect()">Connect to SoundCloud &raquo;</a>
-            	</div>
 
                 <div class="row">
                 	<div class="span2"><h3>
@@ -71,15 +77,19 @@
 
             	<div class="row">
             		<div class="span2"></div>
-            		<div class="span6"><h4 id="status">Loading</h4></div>
+            		
             	</div>
 
             	<div class="row">
-            		<button onclick="" class="btn btn-primary"><i class="icon-repeat icon-white"></i></button>
-	                <button onclick="play()" class="btn btn-primary"><i class="icon-play icon-white"></i></button>
-	                <button onclick="pause()" class="btn btn-primary"><i class="icon-pause icon-white"></i></button>
-	                <button onclick="stop()" class="btn btn-primary"><i class="icon-stop icon-white"></i></button>
-	                <button id="favorite" onclick="favorite()" class="btn btn-primary" data-toggle="popover" data-placement="bottom" title="" data-original-title="You need to connect to SoundCloud first."><i class="icon-heart icon-white"></i></button>
+            		<div class="span2"><h3 id="status">Loading</h3></div>
+            		<div class="span6">
+            		<button onclick="replay()" class="btn btn-primary song-controls"><i class="icon-repeat icon-white"></i></button>
+	                <button onclick="play()" class="btn btn-primary song-controls"><i class="icon-play icon-white"></i></button>
+	                <button onclick="pause()" class="btn btn-primary song-controls"><i class="icon-pause icon-white"></i></button>
+	                <button onclick="stop()" class="btn btn-primary song-controls"><i class="icon-stop icon-white"></i></button>
+	                <button id="favorite" onclick="favorite()" class="btn btn-primary song-controls" data-toggle="popover" data-placement="bottom" title="" data-original-title="You need to connect to SoundCloud first."><i class="icon-heart icon-white"></i></button>
+	                <button onclick="playWholeTrack()" class="btn btn-primary song-controls" onclick="playWholeTrack()">Hear whole track</button>
+            		</div>
             	</div>
 
             </div>
