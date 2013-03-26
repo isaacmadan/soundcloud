@@ -18,8 +18,10 @@ app.get('/', function(req, res){
 
 app.use(express.static(__dirname + '/public'));
 
-app.listen(3000);
-console.log('Listening on port 3000');
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+  console.log("Listening on " + port);
+});
 
 //error handling - at the end of the file
 app.use(errorHandler);
