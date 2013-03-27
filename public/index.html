@@ -55,6 +55,10 @@
 
         <div class="container">
 
+            <div>
+                <p class="lead">Discover music quickly and effectively with 3-second track snapshots. Keep track of the songs you like, and share your new discoveries with friends. Try it out by picking a genre.</p>
+            </div>
+
             <div class="well">
                 <div class="row">
                 <div class="span4">
@@ -133,13 +137,14 @@
 
             </div>
 
-            <div class="well">
-                <div class="row">
-                    <div class="span12">
+            <div class="well" data-spy="scroll">
+                    <div>
                         <h3>I've Heard <button onclick="clearHeardList()" class="btn btn-primary">Clear list</button></h3>
+                        
+                    </div>
+                    <div id="tracksHeardContainer">
                         <div id="tracksHeard"></div>
                     </div>
-                </div>
             </div>
 
             <hr>

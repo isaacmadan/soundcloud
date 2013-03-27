@@ -221,12 +221,15 @@ function searchGenre() {
 	trackOffset = Math.floor(Math.random()*101);
 	console.log("THE OFFSET " + trackOffset);
 
-	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset }, function(tracks) {
-  		console.log(tracks);
-  		tracksArray = tracks;
-  		trackNum = 0;
-  		trackOffset = 50;
-  		playTracks();
+	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 480000 } }, function(tracks) {
+  		if(!tracks.errors) {
+  			console.log(tracks);
+	  		tracksArray = tracks;
+	  		trackNum = 0;
+	  		trackOffset = 50;
+	  		playTracks();
+  		}
+  		else { console.log("ERROR IN REQ"); searchGenre(); }
 	});
 }
 
@@ -241,7 +244,7 @@ function searchTrack() {
 function getMoreTracks() {
 	var query = $("#genreSelect").val();
 
-	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset }, function(tracks) {
+	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 480000 } }, function(tracks) {
   		console.log(tracks);
   		console.log("getting more tracks starting at " + trackOffset);
   		tracksArray = tracks;
@@ -278,7 +281,7 @@ function cleanSound() {
 
 var heardList = new Array();
 function addToHeardList(thisSong) {
-	if(JSON.parse(localStorage.heardList)) {
+	if(JSON.parse(localStorage.heardList))  {
 		heardList = JSON.parse(localStorage.heardList);
 	}
 	heardList.push(thisSong);
