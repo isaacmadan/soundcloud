@@ -19,15 +19,26 @@ app.get('/', function(req, res){
 app.get('/track', function(req, res) {
 	res.setHeader('Content-Type', 'text/html');
 	var title = req.query.title;
+	var image = req.query.image;
 	//res.send("<title>"+title+"</title>");
 
-	res.send("<meta property='fb:app_id' content='528374303872869' />"+
+	var fbCallback = req.query.fb_action_ids;
+	if(fbCallback) {
+		res.writeHead(301,
+	  		{Location: 'index.html'}
+		);
+		res.end();
+	}
+	else {
+		res.send("<meta property='fb:app_id' content='528374303872869' />"+
 			 "<meta property='og:type' content='og:article' />"+
 			 //res.send("<meta property='og:type' content='cookbook:recipe' />");
-			 "<meta property='og:url' content='http://secret-tundra-2377.herokuapp.com/track?title="+req.query.title+"' />"+
-			 "<meta property='og:title' content='Chocolate Pecan Pies' />"+
-			 "<meta property='og:image' content='https://fbcdn-dragon-a.akamaihd.net/cfs-ak-prn1/676529/837/471072486292602-/pecanpie.jpg' />"+
+			 "<meta property='og:url' content='http://secret-tundra-2377.herokuapp.com/track?title="+title+"' />"+
+			 "<meta property='og:title' content='a music snapshot' />"+
+			 "<meta property='og:image' content='"+image+"' />"+
 			 "<meta property='cookbook:author' content='http://samples.ogp.me/390580850990722' />");
+	}
+
 });
 
 app.use(express.bodyParser());

@@ -14,6 +14,8 @@ $(function() {
 		FB.getLoginStatus(function(response) {
 			  if (response.status === 'connected') {
 			    // connected
+			    console.log(response);
+			    $("#facebook").html("<a id='connected_facebook' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+user.name+"'>Connected to Facebook</a>");
 			  } else if (response.status === 'not_authorized') {
 			    // not_authorized
 			    login();
@@ -40,7 +42,7 @@ function login() {
             //testAPI();
             //postToTimeline("fb api test");
             //postLike(song.permalink_url);
-            postLike("http://secret-tundra-2377.herokuapp.com/track?title=SongTestTitle");
+            postLike("http://secret-tundra-2377.herokuapp.com/track?title="+song.title+"&image="+song.artwork_url);
         } else {
             // cancelled
         }

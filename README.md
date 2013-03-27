@@ -1,1 +1,1 @@
-NodeJs + Soundcloud
+Node.js + JQuery + Bootstrap + SoundCloud + Facebook Open Graph

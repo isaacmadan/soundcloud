@@ -65,30 +65,35 @@ function stream(id) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.32);
 		    		setWaveformProgress(sound.position, sound.duration);
+		    		sound.clearOnPosition(sound.duration * 0.16 + 3000);
 		    	});
 
 		    	sound.onPosition(sound.duration * 0.32 + 3000, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.48);
 		    		setWaveformProgress(sound.position, sound.duration);
+		    		sound.clearOnPosition(sound.duration * 0.32 + 3000);
 		    	});
 
 		    	sound.onPosition(sound.duration * 0.48 + 3000, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.64);
 		    		setWaveformProgress(sound.position, sound.duration);
+		    		sound.clearOnPosition(sound.duration * 0.48 + 3000);
 		    	});
 
-				sound.onPosition(sound.duration * 0.64 + 5000, function(eventPosition) {
+				sound.onPosition(sound.duration * 0.64 + 3000, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.8);
 		    		setWaveformProgress(sound.position, sound.duration);
+		    		sound.clearOnPosition(sound.duration * 0.64 + 3000);
 		    	})
 
-		    	sound.onPosition(sound.duration * 0.8 + 5000, function(eventPosition) {
+		    	sound.onPosition(sound.duration * 0.8 + 3000, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.stop();
 		    		setWaveformProgress(sound.duration, sound.duration);
+		    		sound.clearOnPosition(sound.duration * 0.8 + 3000);
 		    	})
 		  	}
 		});
@@ -137,16 +142,35 @@ function connect() {
 function favorite() {
 	if(user) {
 		$("#favorite").attr('data-original-title',"Added to your SoundCloud favorites");
-		//$("#favorite").popover('destroy');
 	}
 	else {
 	}
 }
 
+/** unclear how to get this to work **/
+function clearOnPositionCallbacks() {
+	sound.clearOnPosition(sound.duration*0.16+3000);
+	sound.clearOnPosition(sound.duration*0.32+3000);
+	sound.clearOnPosition(sound.duration*0.48+3000);
+	sound.clearOnPosition(sound.duration*0.64+3000);
+	sound.clearOnPosition(sound.duration*0.8+3000);
+}
+
+function streamRaw(id) {
+	sound = SC.stream(id);
+	sound.load({
+		onload: function() {
+			sound.play();
+		}
+	});
+}
+
 function playWholeTrack() {
-	sound.stop();
-	sound.setPosition(0);
-	sound.play();
+	if(song) {
+		sound.stop();
+		sound = null;
+		streamRaw(song.id);
+	}
 }
 
 
