@@ -37,7 +37,8 @@ function login() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            //testAPI();
+            testAPI();
+            post("fb api test");
         } else {
             // cancelled
         }
@@ -49,6 +50,16 @@ function testAPI() {
     FB.api('/me', function(response) {
         console.log('Good to see you, ' + response.name + '.');
     });
+}
+
+function post(body) {
+	FB.api('/me/feed', 'post', { message: body }, function(response) {
+	  if (!response || response.error) {
+	    alert('Error occured');
+	  } else {
+	    alert('Post ID: ' + response.id);
+	  }
+	});
 }
 
 
