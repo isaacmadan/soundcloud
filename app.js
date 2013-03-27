@@ -16,7 +16,15 @@ app.get('/', function(req, res){
 });
 **/
 
-app.use(express.static(__dirname + '/public'));
+app.get('/track', function(req, res) {
+	res.setHeader('Content-Type', 'text/html');
+	var title = req.query.title;
+	res.send("<title>"+title+"</title>");
+	res.send("<meta property='og:type' content='music snapshot'/>");
+});
+
+app.use(express.bodyParser());
+app.use(express.static(__dirname + '/public')); //last line for uses
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {

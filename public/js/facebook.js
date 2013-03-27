@@ -37,9 +37,10 @@ function login() {
     FB.login(function(response) {
         if (response.authResponse) {
             // connected
-            testAPI();
-            postToTimeline("fb api test");
-            postLike(song.permalink_url);
+            //testAPI();
+            //postToTimeline("fb api test");
+            //postLike(song.permalink_url);
+            postLike("http://secret-tundra-2377.herokuapp.com/track?title=SongTitleHere!");
         } else {
             // cancelled
         }
@@ -67,13 +68,12 @@ function postLike(objectToLike) {
 	FB.api(
 	   'https://graph.facebook.com/me/og.likes',
 	   'post',
-	   { object: objectToLike,
-	     privacy: {'value': 'SELF'} },
+	   { object: objectToLike },
 	   function(response) {
 	     if (!response) {
 	       alert('Error occurred.');
 	     } else if (response.error) {
-	     	
+
 	     } else {
 	     	alert('success');
 	     }
