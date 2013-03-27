@@ -55,8 +55,46 @@
 
         <div class="container">
 
+            <div class="well">
+                <div class="row">
+                <div class="span4">
+                    <div class="form-inline">
+                        <select id="genreSelect" name="optionSelect">
+                            <option value="Pop">Pop</option>
+                            <option value="Jazz">Jazz</option>
+                            <option value="Blues">Blues</option>
+                            <option value="World">World</option>
+                            <option value="Country">Country</option>
+                            <option value="Reggae">Reggae</option>
+                            <option value="Alternative">Alternative</option>
+                            <option value="Rock">Rock</option>
+                            <option value="Metal">Metal</option>
+                            <option value="Electronic">Electronic</option>
+                            <option value="House">House</option>
+                            <option value="Techno">Techno</option>
+                            <option value="Dubstep">Dubstep</option>
+                            <option value="Classical">Classical</option>
+                            <option value="Urban">Urban</option>
+                            <option value="Rap">Rap</option>
+                            <option value="HipHop">Hip Hop</option>
+                        </select>
+                        <button class="btn btn-primary" id="genreSubmit" onclick="searchGenre()">Go</button>
+                    </div>
+                </div>
+
+                <!--<div class="pull-right">
+                    <div class="form-inline">
+                        <input type="text" placeholder="Search for a track" name="trackSearch" id="trackSearch" />
+                        <button class="btn btn-primary" id="trackSearchSubmit" onclick="searchTrack()">Search</button>
+                    </div>
+                </div>-->
+                </div>
+            </div>
+
             <!-- Main hero unit for a primary marketing message or call to action -->
             <div class="hero-unit">
+
+
 
                 <div class="row">
                 	<div class="span2"><h3>
@@ -87,11 +125,21 @@
 	                <button onclick="play()" class="btn btn-primary song-controls"><i class="icon-play icon-white"></i></button>
 	                <button onclick="pause()" class="btn btn-primary song-controls"><i class="icon-pause icon-white"></i></button>
 	                <button onclick="stop()" class="btn btn-primary song-controls"><i class="icon-stop icon-white"></i></button>
+                    <button onclick="skip()" class="btn btn-primary song-controls"><i class="icon-forward icon-white"></i></button>
 	                <button id="favorite" onclick="favorite()" class="btn btn-primary song-controls" data-toggle="popover" data-placement="bottom" title="" data-original-title="You need to connect to SoundCloud first."><i class="icon-heart icon-white"></i></button>
 	                <button onclick="playWholeTrack()" class="btn btn-primary song-controls" onclick="playWholeTrack()">Hear whole track</button>
             		</div>
             	</div>
 
+            </div>
+
+            <div class="well">
+                <div class="row">
+                    <div class="span12">
+                        <h3>I've Heard <button onclick="clearHeardList()" class="btn btn-primary">Clear list</button></h3>
+                        <div id="tracksHeard"></div>
+                    </div>
+                </div>
             </div>
 
             <hr>
