@@ -134,7 +134,8 @@ function connect() {
 	SC.connect(function() {
 		SC.get('/me', function(me) { 
     		user = me;
-    		$("#authenticator").html(me.username);
+    		$("#authenticator").html("<a id='connected_soundcloud' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+me.username+"'>Connected to SoundCloud</a>");
+			$("#connected_soundcloud").tooltip();
   		});
 	});
 }
