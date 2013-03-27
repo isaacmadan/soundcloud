@@ -14,11 +14,10 @@ $(function() {
 		FB.getLoginStatus(function(response) {
 			  if (response.status === 'connected') {
 			    // connected
-			    var name;
 			    FB.api('/me', function(response) {
-        			name = response.name;
+        			$("#facebook").html("<a id='connected_facebook' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+response.name+"'>Connected to Facebook</a>");
     			});
-			    $("#facebook").html("<a id='connected_facebook' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+name+"'>Connected to Facebook</a>");
+			    
 			  } else if (response.status === 'not_authorized') {
 			    // not_authorized
 			    login();

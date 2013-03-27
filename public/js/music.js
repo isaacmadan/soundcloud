@@ -13,6 +13,7 @@ function setupDOM() {
 	$("#favorite").popover();
 	$("#why_connect").tooltip();
 	$(".song-controls").attr("disabled","disabled");
+	$("#connected_facebook").tooltip();
 	if(user) {
 		//alert("logged in");
 	}
