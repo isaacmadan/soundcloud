@@ -16,6 +16,7 @@ $(function() {
 			    // connected
 			    FB.api('/me', function(response) {
         			$("#facebook").html("<a id='connected_facebook' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+response.name+"'>Connected to Facebook</a>");
+					$("#connected_facebook").tooltip();
     			});
 			    
 			  } else if (response.status === 'not_authorized') {
