@@ -281,8 +281,10 @@ function cleanSound() {
 
 var heardList = new Array();
 function addToHeardList(thisSong) {
-	if(JSON.parse(localStorage.heardList))  {
-		heardList = JSON.parse(localStorage.heardList);
+	if(localStorage.heardList) {
+		if(JSON.parse(localStorage.heardList))  {
+			heardList = JSON.parse(localStorage.heardList);
+		}
 	}
 	heardList.push(thisSong);
 	localStorage.heardList = JSON.stringify(heardList);
