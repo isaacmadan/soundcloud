@@ -22,10 +22,10 @@ app.get('/track', function(req, res) {
 	//res.send("<title>"+title+"</title>");
 
 	res.send("<meta property='fb:app_id' content='528374303872869' />"+
-			 "<meta property='og:type' content='article'>"+
+			 "<meta property='og:type' content='og:article' />"+
 			 //res.send("<meta property='og:type' content='cookbook:recipe' />");
 			 "<meta property='og:url' content='http://secret-tundra-2377.herokuapp.com/track?title="+req.query.title+"' />"+
-			 "<meta property='og:title' content='Chocolate Pecan Pie' />"+
+			 "<meta property='og:title' content='Chocolate Pecan Pies' />"+
 			 "<meta property='og:image' content='https://fbcdn-dragon-a.akamaihd.net/cfs-ak-prn1/676529/837/471072486292602-/pecanpie.jpg' />"+
 			 "<meta property='cookbook:author' content='http://samples.ogp.me/390580850990722' />");
 });
