@@ -19,8 +19,8 @@ app.get('/', function(req, res){
 app.get('/track', function(req, res) {
 	res.setHeader('Content-Type', 'text/html');
 	var title = req.query.title;
-	res.send("<title>"+title+"</title>");
-	res.send("<meta property='og:type' content='music snapshot'/>");
+	//res.send("<title>"+title+"</title>");
+	res.send("<meta property='og:type' content='article'>");
 });
 
 app.use(express.bodyParser());
