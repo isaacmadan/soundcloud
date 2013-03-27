@@ -21,10 +21,10 @@ $(function() {
 			    
 			  } else if (response.status === 'not_authorized') {
 			    // not_authorized
-			    login();
+			    //login();
 			  } else {
 			    // not_logged_in
-			    login();
+			    //login();
 			  }
 		});
 	};
@@ -37,6 +37,20 @@ $(function() {
 		 ref.parentNode.insertBefore(js, ref);
 	}(document));
 });
+
+function launchLogin() {
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			// connected
+		} else if (response.status === 'not_authorized') {
+			// not_authorized
+			login();
+		} else {
+			// not_logged_in
+			login();
+		}
+	});
+}
 
 function login() {
     FB.login(function(response) {
