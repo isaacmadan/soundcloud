@@ -38,7 +38,8 @@ function login() {
         if (response.authResponse) {
             // connected
             testAPI();
-            post("fb api test");
+            postToTimeline("fb api test");
+            postLike(song.permalink_url);
         } else {
             // cancelled
         }
@@ -52,7 +53,7 @@ function testAPI() {
     });
 }
 
-function post(body) {
+function postToTimeline(body) {
 	FB.api('/me/feed', 'post', { message: body }, function(response) {
 	  if (!response || response.error) {
 	    alert('Error occured');
@@ -60,6 +61,24 @@ function post(body) {
 	    alert('Post ID: ' + response.id);
 	  }
 	});
+}
+
+function postLike(objectToLike) {
+	FB.api(
+	   'https://graph.facebook.com/me/og.likes',
+	   'post',
+	   { object: objectToLike,
+	     privacy: {'value': 'SELF'} },
+	   function(response) {
+	     if (!response) {
+	       alert('Error occurred.');
+	     } else if (response.error) {
+	     	
+	     } else {
+	     	alert('success');
+	     }
+	   }
+	);
 }
 
 
