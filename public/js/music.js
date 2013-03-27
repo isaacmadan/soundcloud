@@ -13,12 +13,17 @@ function setupDOM() {
 	$("#favorite").popover();
 	$("#why_connect").tooltip();
 	$(".song-controls").attr("disabled","disabled");
-	if(user) {
-		//alert("logged in");
+	
+	try {
+		SC.get('/me', function(me) {
+			if(!me.errors) {
+				user = me;
+				$("#authenticator").html("<a id='connected_soundcloud' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+me.username+"'>Connected to SoundCloud</a>");
+				$("#connected_soundcloud").tooltip();
+			}
+		}); 
 	}
-	else {
-		//alert("not logged in");
-	}
+	catch(ignore) {}
 }
 
 function run() {
