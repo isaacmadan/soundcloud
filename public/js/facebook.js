@@ -40,7 +40,7 @@ function login() {
             //testAPI();
             //postToTimeline("fb api test");
             //postLike(song.permalink_url);
-            postLike("http://secret-tundra-2377.herokuapp.com/track?title=SongTitleHere!");
+            postLike("http://secret-tundra-2377.herokuapp.com/track?title=SongTestTitle");
         } else {
             // cancelled
         }
