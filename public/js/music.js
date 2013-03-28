@@ -172,6 +172,7 @@ function connect() {
 function favorite() {
 	if(user) {
 		$("#favorite").attr('data-original-title',"Added to your SoundCloud favorites");
+		SC.put('/me/favorites/'+song.id);
 	}
 	else {
 	}
