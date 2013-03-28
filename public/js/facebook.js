@@ -94,9 +94,9 @@ function postLike(objectToLike) {
 	     if (!response) {
 	       alert('Error occurred.');
 	     } else if (response.error) {
-
+	     	console.log(response);
 	     } else {
-	     	alert('success');
+	     	console.log('Facebook post success');
 	     }
 	   }
 	);
