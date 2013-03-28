@@ -17,6 +17,7 @@ function setupDOM() {
 	$("#favorite").tooltip();
 	//$("#favorite").popover({ animation: 'true', delay: { show: 10, hide: 10 }});
 	$("#why_connect").tooltip();
+	$("#snapshot_length").tooltip();
 	$(".song-controls").attr("disabled","disabled");
 	initLikedList();
 	
@@ -61,7 +62,12 @@ function setWaveformProgress(position, duration) {
 	$("#waveform-progress").css("width",((position/duration)*100)+"%");
 }
 
+/**
 function stream(id, callback) {
+	var interval = $("#intervalSelect").val();
+	interval = parseInt(interval);
+	interval = interval * 1000;
+
 	SC.whenStreamingReady(function() {
 		sound = SC.stream(id);
 		sound.load({
@@ -82,45 +88,125 @@ function stream(id, callback) {
 		    	console.log("Set intial to: " + sound.position);
 		    	sound.play();
 
-		    	sound.onPosition(sound.duration * 0.16 + 3000, function(eventPosition) {
+		    	sound.onPosition(sound.duration * 0.16 + interval, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.32);
 		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.16 + 3000);
+		    		sound.clearOnPosition(sound.duration * 0.16 + interval);
 		    	});
 
-		    	sound.onPosition(sound.duration * 0.32 + 3000, function(eventPosition) {
+		    	sound.onPosition(sound.duration * 0.32 + interval, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.48);
 		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.32 + 3000);
+		    		sound.clearOnPosition(sound.duration * 0.32 + interval);
 		    	});
 
-		    	sound.onPosition(sound.duration * 0.48 + 3000, function(eventPosition) {
+		    	sound.onPosition(sound.duration * 0.48 + interval, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.64);
 		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.48 + 3000);
+		    		sound.clearOnPosition(sound.duration * 0.48 + interval);
 		    	});
 
-				sound.onPosition(sound.duration * 0.64 + 3000, function(eventPosition) {
+				sound.onPosition(sound.duration * 0.64 + interval, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.setPosition(sound.duration * 0.8);
 		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.64 + 3000);
+		    		sound.clearOnPosition(sound.duration * 0.64 + interval);
 		    	})
 
-		    	sound.onPosition(sound.duration * 0.8 + 3000, function(eventPosition) {
+		    	sound.onPosition(sound.duration * 0.8 + interval, function(eventPosition) {
 		    		console.log("Waited three seconds: " + sound.position);
 		    		sound.stop();
 		    		setWaveformProgress(sound.duration, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.8 + 3000);
+		    		sound.clearOnPosition(sound.duration * 0.8 + interval);
 		    		callback();
 		    	})
 		  	}
 		});
 	});
+}**/
+
+function stream(thisSong, callback) {
+	var interval = $("#intervalSelect").val();
+	interval = parseInt(interval);
+	interval = interval * 1000;
+
+	SC.whenStreamingReady(function() {
+		sound = SC.stream(thisSong.id);
+
+		sound.onPosition(thisSong.duration * 0 + interval, function(eventPosition) {
+    		console.log("Waited three seconds: " + sound.position);
+    		sound.setPosition(thisSong.duration * 0.16);
+    		setWaveformProgress(sound.position, thisSong.duration);
+    		sound.clearOnPosition(thisSong.duration * 0 + interval);
+    	});
+
+		sound.onPosition(thisSong.duration * 0.16 + interval, function(eventPosition) {
+    		console.log("Waited three seconds: " + sound.position);
+    		sound.setPosition(thisSong.duration * 0.32);
+    		setWaveformProgress(sound.position, thisSong.duration);
+    		sound.clearOnPosition(thisSong.duration * 0.16 + interval);
+    	});
+
+    	sound.onPosition(thisSong.duration * 0.32 + interval, function(eventPosition) {
+    		console.log("Waited three seconds: " + sound.position);
+    		sound.setPosition(thisSong.duration * 0.48);
+    		setWaveformProgress(sound.position, thisSong.duration);
+    		sound.clearOnPosition(thisSong.duration * 0.32 + interval);
+    	});
+
+    	sound.onPosition(thisSong.duration * 0.48 + interval, function(eventPosition) {
+    		console.log("Waited three seconds: " + sound.position);
+    		sound.setPosition(thisSong.duration * 0.64);
+    		setWaveformProgress(sound.position, thisSong.duration);
+    		sound.clearOnPosition(thisSong.duration * 0.48 + interval);
+    	});
+
+		sound.onPosition(thisSong.duration * 0.64 + interval, function(eventPosition) {
+    		console.log("Waited three seconds: " + sound.position);
+    		sound.setPosition(thisSong.duration * 0.8);
+    		setWaveformProgress(sound.position, thisSong.duration);
+    		sound.clearOnPosition(thisSong.duration * 0.64 + interval);
+    	});
+
+    	sound.onPosition(thisSong.duration * 0.8 + interval, function(eventPosition) {
+    		console.log("Waited three seconds: " + sound.position);
+    		sound.stop();
+    		setWaveformProgress(thisSong.duration, thisSong.duration);
+    		sound.clearOnPosition(thisSong.duration * 0.8 + interval);
+    		callback();
+    	});
+
+    	sound.setPosition(thisSong.duration * 0.16);
+
+		sound.play({
+			//stream: true,
+			from: thisSong.duration * 0.16,
+			whileloading: function() { 
+				console.log("loading next track");
+				//$("#status").html("Loading");
+				//$(".song-controls").attr("disabled", "disabled");
+				//setWaveformProgress(0, 1);
+			},
+			whileplaying: function() {
+				setWaveformProgress(sound.position, thisSong.duration);
+				console.log("going");
+			},
+			//onload: function() {
+			onplay: function() {
+				$("#status").html("Playing");
+				$(".song-controls").removeAttr("disabled");
+		    	//sound.setPosition(thisSong.duration * 0.16);
+		  		setWaveformProgress(sound.position, thisSong.duration);
+		    	console.log("Set intial to: " + thisSong.duration);
+		    	//sound.play();
+		  	}
+		});
+	});
 }
+
 
 function streamCallback() {
 	console.log('finished stream');
@@ -157,7 +243,7 @@ function replay() {
 		sound.stop();
 		$("#status").html("Reloading");
 		$(".song-controls").attr("disabled","disabled");
-		stream(song.id, streamCallback);
+		stream(song, streamCallback);
 	}
 }
 
@@ -173,7 +259,8 @@ function connect() {
 
 function favorite() {
 	if(user) {
-		$("#favorite").attr('data-original-title',"Added to your SoundCloud favorites.");
+		//$("#favorite").attr('data-original-title',"Added to your SoundCloud favorites.");
+		$("#favorite").tooltip("destroy");
 		SC.put('/me/favorites/'+song.id);
 	}
 	else {
@@ -192,16 +279,19 @@ function favorite() {
 }
 
 /** unclear how to get this to work **/
+/**
 function clearOnPositionCallbacks() {
-	sound.clearOnPosition(sound.duration*0.16+3000);
-	sound.clearOnPosition(sound.duration*0.32+3000);
-	sound.clearOnPosition(sound.duration*0.48+3000);
-	sound.clearOnPosition(sound.duration*0.64+3000);
-	sound.clearOnPosition(sound.duration*0.8+3000);
+	sound.clearOnPosition(sound.duration*0.16+interval);
+	sound.clearOnPosition(sound.duration*0.32+interval);
+	sound.clearOnPosition(sound.duration*0.48+interval);
+	sound.clearOnPosition(sound.duration*0.64+interval);
+	sound.clearOnPosition(sound.duration*0.8+interval);
 }
+**/
 
-function streamRaw(id) {
-	sound = SC.stream(id);
+function streamRaw(thisSong) {
+	sound = SC.stream(thisSong.id);
+	/**
 	sound.load({
 		whileloading: function() { 
 			console.log("loading next track");
@@ -218,13 +308,30 @@ function streamRaw(id) {
 			sound.play();
 		}
 	});
+	**/
+
+	sound.play({
+		//stream: true,
+		whileloading: function() { 
+			console.log("loading next track");
+		},
+		whileplaying: function() {
+			setWaveformProgress(sound.position, thisSong.duration);
+		},
+		onplay: function() {
+			$("#status").html("Playing");
+			$(".song-controls").removeAttr("disabled");
+	  		setWaveformProgress(sound.position, thisSong.duration);
+	  	}
+	});
+
 }
 
 function playWholeTrack() {
 	if(song) {
 		sound.destruct();
 		sound = null;
-		streamRaw(song.id);
+		streamRaw(song);
 	}
 }
 
@@ -235,7 +342,7 @@ function searchGenre() {
 	trackOffset = Math.floor(Math.random()*101);
 	console.log("THE OFFSET " + trackOffset);
 
-	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 480000 } }, function(tracks) {
+	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 300000 } }, function(tracks) { //use 480000 for 8 minutes; currently 5 min is for optimal non lag
   		if(!tracks.errors) {
   			console.log(tracks);
 	  		tracksArray = tracks;
@@ -260,7 +367,7 @@ function searchTrack() {
 function getMoreTracks() {
 	var query = $("#genreSelect").val();
 
-	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 480000 } }, function(tracks) {
+	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 300000 } }, function(tracks) {
   		console.log(tracks);
   		console.log("getting more tracks starting at " + trackOffset);
   		tracksArray = tracks;
@@ -284,7 +391,7 @@ function playTracks() {
 	cleanSound();
 	while(tracksArray[trackNum].streamable == false) trackNum++;
 	song = tracksArray[trackNum];
-	stream(song.id, streamCallback);
+	stream(song, streamCallback);
 	updateDOM();
 	addToHeardList(song);
 }
