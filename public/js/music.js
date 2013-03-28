@@ -3,7 +3,7 @@ $(function() {
 	run();
 })
 
-var URL = "https://soundcloud.com/lordemusic/bravado-fffrrannno-remix";
+//var URL = "https://soundcloud.com/lordemusic/bravado-fffrrannno-remix";
 var song; //soundcloud object
 var sound; //soundmanager2 object
 var authenticated = false;
@@ -14,9 +14,11 @@ var trackNum; //index
 var trackOffset = 0;
 
 function setupDOM() {
-	$("#favorite").popover();
+	$("#favorite").tooltip();
+	//$("#favorite").popover({ animation: 'true', delay: { show: 10, hide: 10 }});
 	$("#why_connect").tooltip();
 	$(".song-controls").attr("disabled","disabled");
+	initLikedList();
 	
 	try {
 		SC.get('/me', function(me) {
@@ -171,11 +173,22 @@ function connect() {
 
 function favorite() {
 	if(user) {
-		$("#favorite").attr('data-original-title',"Added to your SoundCloud favorites");
+		$("#favorite").attr('data-original-title',"Added to your SoundCloud favorites.");
 		SC.put('/me/favorites/'+song.id);
 	}
 	else {
 	}
+
+	FB.getLoginStatus(function(response) {
+		if (response.status === 'connected') {
+			postLike("http://secret-tundra-2377.herokuapp.com/track?title="+song.title+"&image="+song.artwork_url);
+		}
+		else {
+		}
+	});
+
+	addToLikedList(song);
+
 }
 
 /** unclear how to get this to work **/
@@ -234,6 +247,7 @@ function searchGenre() {
 	});
 }
 
+/**
 function searchTrack() {
 	var query = $("#trackSearch").val();
 
@@ -241,6 +255,7 @@ function searchTrack() {
   		console.log(tracks);
 	});
 }
+**/
 
 function getMoreTracks() {
 	var query = $("#genreSelect").val();
@@ -283,28 +298,82 @@ function cleanSound() {
 var heardList = new Array();
 function addToHeardList(thisSong) {
 	if(localStorage.heardList) {
-		if(JSON.parse(localStorage.heardList))  {
-			heardList = JSON.parse(localStorage.heardList);
+		try {
+			if(JSON.parse(localStorage.heardList))  {
+				heardList = JSON.parse(localStorage.heardList);
+			}
+		}
+		catch(error) {
+			heardList = new Array();
 		}
 	}
+
 	heardList.push(thisSong);
 	localStorage.heardList = JSON.stringify(heardList);
-	var localList = JSON.parse(localStorage.heardList);
+
 	$("#tracksHeard").html("");
-	for(var i = 0; i < localList.length; i++) {
-		$("#tracksHeard").append("<p><a href='"+localList[i].permalink_url+"'>"+localList[i].title+"</a> uploaded by <a href='"+localList[i].user.permalink_url+"'>"+localList[i].user.username+"</a></p>");
+	for(var i = 0; i < heardList.length; i++) {
+		$("#tracksHeard").append("<p><a href='"+heardList[i].permalink_url+"'>"+heardList[i].title+"</a> uploaded by <a href='"+heardList[i].user.permalink_url+"'>"+heardList[i].user.username+"</a></p>");
 	}
-	//$("#tracksHeard").append("<p><a href='"+thisSong.permalink_url+"'>"+thisSong.title+"</a> uploaded by <a href='"+thisSong.user.permalink_url+"'>"+thisSong.user.username+"</a></p>");
 }
 
 function clearHeardList() {
 	if(confirm("Are you sure?")) {
 		heardList = new Array();
-		localStorage.heardList = null;
+		localStorage.removeItem("heardList");
 		$("#tracksHeard").html("");
 	}
 }
 
+var likedList = new Array();
+function addToLikedList(thisSong) {
+	if(localStorage.likedList) {
+		try {
+			if(JSON.parse(localStorage.likedList))  {
+				likedList = JSON.parse(localStorage.likedList);
+			}
+		}
+		catch(error) {
+			likedList = new Array();
+		}
+	}
+
+	likedList.push(thisSong);
+	localStorage.likedList = JSON.stringify(likedList);
+
+	$("#tracksLiked").html("");
+	for(var i = 0; i < likedList.length; i++) {
+		$("#tracksLiked").append("<p><a href='"+likedList[i].permalink_url+"'>"+likedList[i].title+"</a> uploaded by <a href='"+likedList[i].user.permalink_url+"'>"+likedList[i].user.username+"</a></p>");
+	}
+}
+
+function clearLikedList() {
+	if(confirm("Are you sure?")) {
+		likedList = new Array();
+		localStorage.removeItem("likedList");
+		$("#tracksLiked").html("");
+	}
+}
+
+function initLikedList() {
+	if(localStorage.likedList) {
+		try {
+			if(JSON.parse(localStorage.likedList))  {
+				likedList = JSON.parse(localStorage.likedList);
+			}
+		}
+		catch(error) {
+			likedList = new Array();
+		}
+	}
+
+	localStorage.likedList = JSON.stringify(likedList);
+
+	$("#tracksLiked").html("");
+	for(var i = 0; i < likedList.length; i++) {
+		$("#tracksLiked").append("<p><a href='"+likedList[i].permalink_url+"'>"+likedList[i].title+"</a> uploaded by <a href='"+likedList[i].user.permalink_url+"'>"+likedList[i].user.username+"</a></p>");
+	}
+}
 
 
 

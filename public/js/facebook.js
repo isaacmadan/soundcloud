@@ -60,7 +60,7 @@ function login() {
             //postToTimeline("fb api test");
             //postLike(song.permalink_url);
             console.log(response);
-            postLike("http://secret-tundra-2377.herokuapp.com/track?title="+song.title+"&image="+song.artwork_url);
+            //postLike("http://secret-tundra-2377.herokuapp.com/track?title="+song.title+"&image="+song.artwork_url);
             FB.api('/me', function(response) {
             	$("#facebook").html("<a id='connected_facebook' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+response.name+"'>Connected to Facebook</a>");
 				$("#connected_facebook").tooltip();
