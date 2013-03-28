@@ -33,7 +33,7 @@ app.get('/track', function(req, res) {
 		res.send("<meta property='fb:app_id' content='528374303872869' />"+
 			 "<meta property='og:type' content='og:article' />"+
 			 //res.send("<meta property='og:type' content='cookbook:recipe' />");
-			 "<meta property='og:url' content='http://secret-tundra-2377.herokuapp.com/track?title="+title+"' />"+
+			 "<meta property='og:url' content='http://secret-tundra-2377.herokuapp.com/track?title="+title+"&image="+image+"' />"+
 			 "<meta property='og:title' content='a music snapshot' />"+
 			 "<meta property='og:image' content='"+image+"' />"+
 			 "<meta property='cookbook:author' content='http://samples.ogp.me/390580850990722' />");
