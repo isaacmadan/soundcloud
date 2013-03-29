@@ -113,13 +113,13 @@ function postLike(objectToLike) {
 	  function(response) {
 	    // handle the response
 	    if(!response) {
-	    	alert(response);
+	    	console.log(response);
 	    }
 	    else if(response.error) {
-	    	alert(response);
+	    	console.log(response);
 	    }
 	    else {
-	    	alert('success');
+	    	console.log(response);
 	    }
 	  }
 	);

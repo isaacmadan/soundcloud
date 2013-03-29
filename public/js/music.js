@@ -185,14 +185,14 @@ function stream(thisSong, callback) {
 			//stream: true,
 			from: thisSong.duration * 0.16,
 			whileloading: function() { 
-				console.log("loading next track");
+				//console.log("loading next track");
 				//$("#status").html("Loading");
 				//$(".song-controls").attr("disabled", "disabled");
 				//setWaveformProgress(0, 1);
 			},
 			whileplaying: function() {
 				setWaveformProgress(sound.position, thisSong.duration);
-				console.log("going");
+				//console.log("going");
 			},
 			//onload: function() {
 			onplay: function() {
