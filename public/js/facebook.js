@@ -103,6 +103,17 @@ function postLike(objectToLike) {
 	     }
 	   }
 	);
+
+	FB.api(
+	  'me/splicrco:discover',
+	  'post',
+	  {
+	    song: objectToLike
+	  },
+	  function(response) {
+	    // handle the response
+	  }
+	);
 }
 
 

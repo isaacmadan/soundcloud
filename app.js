@@ -37,8 +37,10 @@ app.get('/track', function(req, res) {
 		res.end();
 	}
 	else {
-		res.send("<meta property='fb:app_id' content='528374303872869' />"+
-			 "<meta property='og:type' content='splicrco:discover' />"+
+		res.send(
+			 "<head prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# music: http://ogp.me/ns/music#'>"+
+			 "<meta property='fb:app_id' content='528374303872869' />"+
+			 "<meta property='og:type' content='music.song' />"+
 			 //res.send("<meta property='og:type' content='cookbook:recipe' />");
 			 "<meta property='og:url' content='http://www.splicr.co/track?title="+title+"&image="+image+"' />"+
 			 "<meta property='og:title' content='"+title+"' />"+
