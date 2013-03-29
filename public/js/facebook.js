@@ -112,6 +112,15 @@ function postLike(objectToLike) {
 	  },
 	  function(response) {
 	    // handle the response
+	    if(!response) {
+	    	alert(response);
+	    }
+	    else if(response.error) {
+	    	alert(response);
+	    }
+	    else {
+	    	alert('success');
+	    }
 	  }
 	);
 }
