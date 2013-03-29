@@ -4,7 +4,7 @@ $(function() {
 	window.fbAsyncInit = function() {
 		FB.init({
 			  appId      : '528374303872869', // App ID
-			  channelUrl : '//secret-tundra-2377.herokuapp.com/channel.html', // Channel File
+			  channelUrl : '//www.splicr.co/channel.html', // Channel File
 			  status     : true, // check login status
 			  cookie     : true, // enable cookies to allow the server to access the session
 			  xfbml      : true  // parse XFBML

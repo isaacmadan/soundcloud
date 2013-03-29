@@ -36,7 +36,7 @@ function setupDOM() {
 function run() {
 	SC.initialize({
 		client_id: "fac07a258929aa5be4d1010c4571d687",
-		redirect_uri: "http://secret-tundra-2377.herokuapp.com/callback.html",
+		redirect_uri: "http://www.splicr.co/callback.html",
 	});
 	//resolve(URL);
 	searchGenre();
@@ -268,7 +268,7 @@ function favorite() {
 
 	FB.getLoginStatus(function(response) {
 		if (response.status === 'connected') {
-			postLike("http://secret-tundra-2377.herokuapp.com/track?title="+song.title+"&image="+song.artwork_url);
+			postLike("http://www.splicr.co/track?title="+song.title+"&image="+song.artwork_url);
 		}
 		else {
 		}
