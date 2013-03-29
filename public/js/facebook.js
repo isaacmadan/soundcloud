@@ -104,6 +104,7 @@ function postLike(objectToLike) {
 	   }
 	);
 
+	/**
 	FB.api(
 	  'me/splicrco:discover',
 	  'post',
@@ -123,6 +124,7 @@ function postLike(objectToLike) {
 	    }
 	  }
 	);
+	**/
 }
 
 
