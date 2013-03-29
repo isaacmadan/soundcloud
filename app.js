@@ -16,10 +16,12 @@ app.get('/', function(req, res){
 });
 **/
 
+/**
 app.get('http://splicr.co/*',function(req,res){  
     //res.redirect('http://'+req.url)
     res.redirect('http://www.splicr.co');
 });
+**/
 
 app.get('/track', function(req, res) {
 	res.setHeader('Content-Type', 'text/html');
