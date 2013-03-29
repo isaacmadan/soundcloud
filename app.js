@@ -38,7 +38,7 @@ app.get('/track', function(req, res) {
 	}
 	else {
 		res.send("<meta property='fb:app_id' content='528374303872869' />"+
-			 "<meta property='og:type' content='og:article' />"+
+			 "<meta property='og:type' content='splicrco:discover' />"+
 			 //res.send("<meta property='og:type' content='cookbook:recipe' />");
 			 "<meta property='og:url' content='http://www.splicr.co/track?title="+title+"&image="+image+"' />"+
 			 "<meta property='og:title' content='"+title+"' />"+
