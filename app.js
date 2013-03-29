@@ -45,7 +45,7 @@ app.get('/track', function(req, res) {
 			 "<meta property='og:url' content='http://www.splicr.co/track?title="+title+"&image="+image+"' />"+
 			 "<meta property='og:title' content='"+title+"' />"+
 			 "<meta property='og:image' content='"+image+"' />"+
-			 "<meta property='music:album:url' content='http://www.splicr.co/track?title="+title+"&image="+image+"' /> 
+			 "<meta property='music:album:url' content='http://www.splicr.co/track?title="+title+"&image="+image+"' />"+ 
 			 "<meta property='cookbook:author' content='http://samples.ogp.me/390580850990722' />");
 	}
 
