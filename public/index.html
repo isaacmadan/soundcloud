@@ -20,6 +20,9 @@
         <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
         <link rel="stylesheet" href="css/main.css">
 
+        <!-- styles needed by jScrollPane -->
+        <link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
     </head>
     <body>
@@ -149,11 +152,12 @@
             	<div class="row">
             		<div class="span2"><h3 id="status">Loading</h3></div>
             		<div class="span6">
-            		<button onclick="replay()" class="btn btn-primary song-controls"><i class="icon-repeat icon-white"></i></button>
+            		<button onclick="loop()" id="loop_button" class="btn btn-primary song-controls" data-toggle="button" data-toggle="tooltip" data-placement="bottom" data-original-title="Loop"><i class="icon-refresh icon-white"></i></button>
+                    <button onclick="replay()" id="replay_button" class="btn btn-primary song-controls" data-toggle="tooltip" data-placement="bottom" data-original-title="Start over"><i class="icon-repeat icon-white"></i></button>
 	                <button onclick="play()" class="btn btn-primary song-controls"><i class="icon-play icon-white"></i></button>
 	                <button onclick="pause()" class="btn btn-primary song-controls"><i class="icon-pause icon-white"></i></button>
-	                <button onclick="stop()" class="btn btn-primary song-controls"><i class="icon-stop icon-white"></i></button>
-                    <button onclick="skip()" class="btn btn-primary"><i class="icon-forward icon-white"></i></button>
+	                <!--<button onclick="stop()" class="btn btn-primary song-controls"><i class="icon-stop icon-white"></i></button>-->
+                    <button onclick="skip()" class="btn btn-primary song-controls" id="skip_button"><i class="icon-forward icon-white"></i></button>
 	                <button id="favorite" onclick="favorite()" class="btn btn-primary song-controls" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Connect to SoundCloud to save this like to your account."><i class="icon-heart icon-white"></i></button>
 	                <button onclick="playWholeTrack()" class="btn btn-primary song-controls" onclick="playWholeTrack()">Hear whole track</button>
             		</div>
@@ -212,6 +216,10 @@
         <script src="//connect.soundcloud.com/sdk.js"></script>
 		<script src="js/facebook.js"></script>
         <script src="js/music.js"></script>
+
+        
+        <!-- the jScrollPane script -->
+        <script src="js/vendor/jquery.mCustomScrollbar.concat.min.js"></script>
 
     </body>
 </html>

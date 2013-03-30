@@ -18,9 +18,25 @@ function setupDOM() {
 	//$("#favorite").popover({ animation: 'true', delay: { show: 10, hide: 10 }});
 	$("#why_connect").tooltip();
 	$("#snapshot_length").tooltip();
+	$("#loop_button").tooltip();
+	$("#replay_button").tooltip();
 	$(".song-controls").attr("disabled","disabled");
+	//$("#skip_button").attr("disabled", "disabled");
+	$("#tracksHeardContainer").mCustomScrollbar({
+	    advanced:{
+	        updateOnContentResize: true
+	    },
+	    theme: "dark-thick"
+	});
+	$("#tracksLikedContainer").mCustomScrollbar({
+	    advanced:{
+	        updateOnContentResize: true
+	    },
+	    theme: "dark-thick"
+	});
 	initLikedList();
 	
+	/**
 	try {
 		SC.get('/me', function(me) {
 			if(!me.errors) {
@@ -31,6 +47,7 @@ function setupDOM() {
 		}); 
 	}
 	catch(ignore) {}
+	**/
 }
 
 function run() {
@@ -56,77 +73,12 @@ function updateDOM() {
 	$("#waveform").css("background-image", "url('"+song.waveform_url+"')");
 	$("#title").html(song.title);
 	$("#detail").html("Uploaded by <a href='"+song.user.permalink_url+"'>"+song.user.username+"</a>");
+	//$("#skip_button").removeAttr("disabled");
 }
 
 function setWaveformProgress(position, duration) {
 	$("#waveform-progress").css("width",((position/duration)*100)+"%");
 }
-
-/**
-function stream(id, callback) {
-	var interval = $("#intervalSelect").val();
-	interval = parseInt(interval);
-	interval = interval * 1000;
-
-	SC.whenStreamingReady(function() {
-		sound = SC.stream(id);
-		sound.load({
-			whileloading: function() { 
-				console.log("loading next track");
-				$("#status").html("Loading");
-				$(".song-controls").attr("disabled", "disabled");
-				setWaveformProgress(0, 1);
-			},
-			whileplaying: function() {
-				setWaveformProgress(sound.position, sound.duration);
-			},
-			onload: function() {
-				$("#status").html("Playing");
-				$(".song-controls").removeAttr("disabled");
-		    	sound.setPosition(sound.duration * 0.16);
-		  		setWaveformProgress(sound.position, sound.duration);
-		    	console.log("Set intial to: " + sound.position);
-		    	sound.play();
-
-		    	sound.onPosition(sound.duration * 0.16 + interval, function(eventPosition) {
-		    		console.log("Waited three seconds: " + sound.position);
-		    		sound.setPosition(sound.duration * 0.32);
-		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.16 + interval);
-		    	});
-
-		    	sound.onPosition(sound.duration * 0.32 + interval, function(eventPosition) {
-		    		console.log("Waited three seconds: " + sound.position);
-		    		sound.setPosition(sound.duration * 0.48);
-		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.32 + interval);
-		    	});
-
-		    	sound.onPosition(sound.duration * 0.48 + interval, function(eventPosition) {
-		    		console.log("Waited three seconds: " + sound.position);
-		    		sound.setPosition(sound.duration * 0.64);
-		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.48 + interval);
-		    	});
-
-				sound.onPosition(sound.duration * 0.64 + interval, function(eventPosition) {
-		    		console.log("Waited three seconds: " + sound.position);
-		    		sound.setPosition(sound.duration * 0.8);
-		    		setWaveformProgress(sound.position, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.64 + interval);
-		    	})
-
-		    	sound.onPosition(sound.duration * 0.8 + interval, function(eventPosition) {
-		    		console.log("Waited three seconds: " + sound.position);
-		    		sound.stop();
-		    		setWaveformProgress(sound.duration, sound.duration);
-		    		sound.clearOnPosition(sound.duration * 0.8 + interval);
-		    		callback();
-		    	})
-		  	}
-		});
-	});
-}**/
 
 function stream(thisSong, callback) {
 	var interval = $("#intervalSelect").val();
@@ -183,6 +135,7 @@ function stream(thisSong, callback) {
     	sound.setPosition(thisSong.duration * 0.16);
     	}
     	else {
+    		waveformDestroyClickForTooltip();
     		$("#waveform").click(function(e) {
 				var offset = $("#waveform").offset();
 				var newX = e.clientX - offset.left;
@@ -204,12 +157,6 @@ function stream(thisSong, callback) {
 		sound.play({
 			//stream: true,
 			//from: thisSong.duration * 0.16,
-			whileloading: function() { 
-				//console.log("loading next track");
-				//$("#status").html("Loading");
-				//$(".song-controls").attr("disabled", "disabled");
-				//setWaveformProgress(0, 1);
-			},
 			whileplaying: function() {
 				setWaveformProgress(sound.position, thisSong.duration);
 				//console.log("going");
@@ -269,7 +216,14 @@ function replay() {
 		$("#status").html("Reloading");
 		$(".song-controls").attr("disabled","disabled");
 		stream(song, streamCallback);
+		$("#replay_button").tooltip("destroy");
 	}
+}
+
+function loop() {
+	$("#loop_button").tooltip("destroy");
+	//trackNum--;
+	//streamCallback();
 }
 
 function connect() {
@@ -303,37 +257,8 @@ function favorite() {
 
 }
 
-/** unclear how to get this to work **/
-/**
-function clearOnPositionCallbacks() {
-	sound.clearOnPosition(sound.duration*0.16+interval);
-	sound.clearOnPosition(sound.duration*0.32+interval);
-	sound.clearOnPosition(sound.duration*0.48+interval);
-	sound.clearOnPosition(sound.duration*0.64+interval);
-	sound.clearOnPosition(sound.duration*0.8+interval);
-}
-**/
-
 function streamRaw(thisSong) {
 	sound = SC.stream(thisSong.id);
-	/**
-	sound.load({
-		whileloading: function() { 
-			console.log("loading next track");
-			$("#status").html("Loading");
-			$(".song-controls").attr("disabled", "disabled");
-			setWaveformProgress(0, 1);
-		},
-		whileplaying: function() {
-			setWaveformProgress(sound.position, sound.duration);
-		},
-		onload: function() {
-			$("#status").html("Playing");
-			$(".song-controls").removeAttr("disabled");
-			sound.play();
-		}
-	});
-	**/
 
 	sound.play({
 		//stream: true,
@@ -361,6 +286,7 @@ function playWholeTrack() {
 		sound = null;
 		streamRaw(song);
 
+		waveformDestroyClickForTooltip();
 		$("#waveform").click(function(e) {
 			var offset = $("#waveform").offset();
 			var newX = e.clientX - offset.left;
@@ -385,36 +311,25 @@ function searchGenre() {
 
 	//trackOffset = 201;
 	trackOffset = Math.floor(Math.random()*101);
-	console.log("THE OFFSET " + trackOffset);
 
 	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 300000 } }, function(tracks) { //use 480000 for 8 minutes; currently 5 min is for optimal non lag
   		if(!tracks.errors) {
-  			console.log(tracks);
+  			//console.log(tracks);
 	  		tracksArray = tracks;
 	  		trackNum = 0;
 	  		trackOffset = 50;
 	  		playTracks();
   		}
-  		else { console.log("ERROR IN REQ"); searchGenre(); }
+  		else { searchGenre(); }
 	});
 }
-
-/**
-function searchTrack() {
-	var query = $("#trackSearch").val();
-
-	SC.get('/tracks', { q: query }, function(tracks) {
-  		console.log(tracks);
-	});
-}
-**/
 
 function getMoreTracks() {
 	var query = $("#genreSelect").val();
 
 	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 300000 } }, function(tracks) {
-  		console.log(tracks);
-  		console.log("getting more tracks starting at " + trackOffset);
+  		//console.log(tracks);
+  		//console.log("getting more tracks starting at " + trackOffset);
   		tracksArray = tracks;
   		trackNum = 0;
   		trackOffset = trackOffset + 50;
@@ -427,6 +342,9 @@ function getMoreTracks() {
 function playTracks() {
 	if(trackNum < tracksArray.length-1) {
 		trackNum++;
+		if($("#loop_button").hasClass("active")) { //loop
+			trackNum--;
+		}
 	}
 	else {
 		trackNum = 0;
@@ -442,6 +360,7 @@ function playTracks() {
 	var interval = $("#intervalSelect").val();
 	if(interval != 0) {
 		$("#waveform").unbind("click");
+		waveformClickForTooltip();
 	}
 }
 
@@ -531,6 +450,19 @@ function initLikedList() {
 	}
 }
 
+function waveformClickForTooltip() {
+	$("#waveform").click(function() {
+		$("#waveform").attr("data-toggle", "tooltip");
+		$("#waveform").attr("data-placement", "right");
+		$("#waveform").attr("data-original-title", "To scroll the track, click Hear whole track or turn off splicing.");
+		$("#waveform").tooltip();
+	});
+}
+
+function waveformDestroyClickForTooltip() {
+	$("#waveform").tooltip("destroy");
+	$("#waveform").unbind("click");
+}
 
 
 
