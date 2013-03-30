@@ -136,6 +136,7 @@ function stream(thisSong, callback) {
 	SC.whenStreamingReady(function() {
 		sound = SC.stream(thisSong.id);
 
+		if(interval != 0) {
 		sound.onPosition(thisSong.duration * 0 + interval, function(eventPosition) {
     		console.log("Waited three seconds: " + sound.position);
     		sound.setPosition(thisSong.duration * 0.16);
@@ -180,10 +181,29 @@ function stream(thisSong, callback) {
     	});
 
     	sound.setPosition(thisSong.duration * 0.16);
-
+    	}
+    	else {
+    		$("#waveform").click(function(e) {
+				var offset = $("#waveform").offset();
+				var newX = e.clientX - offset.left;
+				var width = $("#waveform").width();
+				setWaveformProgress(newX, width);
+				sound.stop();
+				sound.setPosition((newX/width)*thisSong.duration);
+				sound.play({
+					whileplaying: function() {
+						setWaveformProgress(sound.position, thisSong.duration);
+					},
+					onfinish: function() {
+						callback();
+					}
+				});
+			});
+    	}
+		
 		sound.play({
 			//stream: true,
-			from: thisSong.duration * 0.16,
+			//from: thisSong.duration * 0.16,
 			whileloading: function() { 
 				//console.log("loading next track");
 				//$("#status").html("Loading");
@@ -202,6 +222,11 @@ function stream(thisSong, callback) {
 		  		setWaveformProgress(sound.position, thisSong.duration);
 		    	console.log("Set intial to: " + thisSong.duration);
 		    	//sound.play();
+		  	},
+		  	onfinish: function() {
+		  		if(interval == 0) {
+		  			callback();
+		  		}
 		  	}
 		});
 	});
@@ -322,6 +347,9 @@ function streamRaw(thisSong) {
 			$("#status").html("Playing");
 			$(".song-controls").removeAttr("disabled");
 	  		setWaveformProgress(sound.position, thisSong.duration);
+	  	},
+	  	onfinish: function() {
+	  		streamCallback();
 	  	}
 	});
 
@@ -332,6 +360,23 @@ function playWholeTrack() {
 		sound.destruct();
 		sound = null;
 		streamRaw(song);
+
+		$("#waveform").click(function(e) {
+			var offset = $("#waveform").offset();
+			var newX = e.clientX - offset.left;
+			var width = $("#waveform").width();
+			setWaveformProgress(newX, width);
+			sound.stop();
+			sound.setPosition((newX/width)*song.duration);
+			sound.play({
+				whileplaying: function() {
+					setWaveformProgress(sound.position, song.duration);
+				},
+				onfinish: function() {
+					streamCallback();
+				}
+			});
+		});
 	}
 }
 
@@ -394,6 +439,10 @@ function playTracks() {
 	stream(song, streamCallback);
 	updateDOM();
 	addToHeardList(song);
+	var interval = $("#intervalSelect").val();
+	if(interval != 0) {
+		$("#waveform").unbind("click");
+	}
 }
 
 function cleanSound() {
