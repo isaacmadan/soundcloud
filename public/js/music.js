@@ -68,7 +68,7 @@ function resolve(thisUrl) {
 }
 
 function updateDOM() {
-	console.log(song);
+	//console.log(song);
 	$("#song_image").attr("src", song.artwork_url);
 	$("#waveform").css("background-image", "url('"+song.waveform_url+"')");
 	$("#title").html(song.title);
@@ -90,42 +90,42 @@ function stream(thisSong, callback) {
 
 		if(interval != 0) {
 		sound.onPosition(thisSong.duration * 0 + interval, function(eventPosition) {
-    		console.log("Waited three seconds: " + sound.position);
+    		//console.log("Waited three seconds: " + sound.position);
     		sound.setPosition(thisSong.duration * 0.16);
     		setWaveformProgress(sound.position, thisSong.duration);
     		sound.clearOnPosition(thisSong.duration * 0 + interval);
     	});
 
 		sound.onPosition(thisSong.duration * 0.16 + interval, function(eventPosition) {
-    		console.log("Waited three seconds: " + sound.position);
+    		//console.log("Waited three seconds: " + sound.position);
     		sound.setPosition(thisSong.duration * 0.32);
     		setWaveformProgress(sound.position, thisSong.duration);
     		sound.clearOnPosition(thisSong.duration * 0.16 + interval);
     	});
 
     	sound.onPosition(thisSong.duration * 0.32 + interval, function(eventPosition) {
-    		console.log("Waited three seconds: " + sound.position);
+    		//console.log("Waited three seconds: " + sound.position);
     		sound.setPosition(thisSong.duration * 0.48);
     		setWaveformProgress(sound.position, thisSong.duration);
     		sound.clearOnPosition(thisSong.duration * 0.32 + interval);
     	});
 
     	sound.onPosition(thisSong.duration * 0.48 + interval, function(eventPosition) {
-    		console.log("Waited three seconds: " + sound.position);
+    		//console.log("Waited three seconds: " + sound.position);
     		sound.setPosition(thisSong.duration * 0.64);
     		setWaveformProgress(sound.position, thisSong.duration);
     		sound.clearOnPosition(thisSong.duration * 0.48 + interval);
     	});
 
 		sound.onPosition(thisSong.duration * 0.64 + interval, function(eventPosition) {
-    		console.log("Waited three seconds: " + sound.position);
+    		//console.log("Waited three seconds: " + sound.position);
     		sound.setPosition(thisSong.duration * 0.8);
     		setWaveformProgress(sound.position, thisSong.duration);
     		sound.clearOnPosition(thisSong.duration * 0.64 + interval);
     	});
 
     	sound.onPosition(thisSong.duration * 0.8 + interval, function(eventPosition) {
-    		console.log("Waited three seconds: " + sound.position);
+    		//console.log("Waited three seconds: " + sound.position);
     		sound.stop();
     		setWaveformProgress(thisSong.duration, thisSong.duration);
     		sound.clearOnPosition(thisSong.duration * 0.8 + interval);
@@ -167,7 +167,7 @@ function stream(thisSong, callback) {
 				$(".song-controls").removeAttr("disabled");
 		    	//sound.setPosition(thisSong.duration * 0.16);
 		  		setWaveformProgress(sound.position, thisSong.duration);
-		    	console.log("Set intial to: " + thisSong.duration);
+		    	//console.log("Set intial to: " + thisSong.duration);
 		    	//sound.play();
 		  	},
 		  	onfinish: function() {
@@ -181,7 +181,7 @@ function stream(thisSong, callback) {
 
 
 function streamCallback() {
-	console.log('finished stream');
+	//console.log('finished stream');
 	playTracks();
 }
 
@@ -264,7 +264,7 @@ function streamRaw(thisSong) {
 	sound.play({
 		//stream: true,
 		whileloading: function() { 
-			console.log("loading next track");
+			//console.log("loading next track");
 		},
 		whileplaying: function() {
 			setWaveformProgress(sound.position, thisSong.duration);
