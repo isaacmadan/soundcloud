@@ -232,6 +232,7 @@ function connect() {
     		user = me;
     		$("#authenticator").html("<a id='connected_soundcloud' data-toggle='tooltip' data-placement='bottom' data-original-title='Hi "+me.username+"'>Connected to SoundCloud</a>");
 			$("#connected_soundcloud").tooltip();
+			$("#favorite").tooltip("destroy");
   		});
 	});
 }
