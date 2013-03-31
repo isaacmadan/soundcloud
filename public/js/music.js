@@ -72,7 +72,7 @@ function updateDOM() {
 	$("#song_image").attr("src", song.artwork_url);
 	$("#waveform").css("background-image", "url('"+song.waveform_url+"')");
 	$("#title").html(song.title);
-	$("#detail").html("Uploaded by <a href='"+song.user.permalink_url+"'>"+song.user.username+"</a>");
+	$("#detail").html("Uploaded by <a target='_blank' href='"+song.user.permalink_url+"'>"+song.user.username+"</a>");
 	//$("#skip_button").removeAttr("disabled");
 }
 
