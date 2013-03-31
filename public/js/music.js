@@ -311,14 +311,18 @@ function searchGenre() {
 	var query = $("#genreSelect").val();
 
 	//trackOffset = 201;
-	trackOffset = Math.floor(Math.random()*101);
+	//trackOffset = Math.floor(Math.random()*101);
+	trackOffset = Math.floor(Math.random()*1001); //vary for randomness
 
 	SC.get('/tracks', { genres: query, streamable: 'true', offset: trackOffset, duration: { from: 120000, to: 300000 } }, function(tracks) { //use 480000 for 8 minutes; currently 5 min is for optimal non lag
   		if(!tracks.errors) {
   			//console.log(tracks);
 	  		tracksArray = tracks;
 	  		trackNum = 0;
-	  		trackOffset = 50;
+	  		trackOffset = trackOffset + 50;
+	  		if(trackOffset > 7900) {
+	  			trackOffset = 0;
+	  		}
 	  		playTracks();
   		}
   		else { searchGenre(); }
