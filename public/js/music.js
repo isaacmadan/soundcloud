@@ -389,7 +389,8 @@ function addToHeardList(thisSong) {
 
 	$("#tracksHeard").html("");
 	for(var i = 0; i < heardList.length; i++) {
-		$("#tracksHeard").append("<p><a href='"+heardList[i].permalink_url+"'>"+heardList[i].title+"</a> uploaded by <a href='"+heardList[i].user.permalink_url+"'>"+heardList[i].user.username+"</a></p>");
+		//$("#tracksHeard").append("<p><a href='"+heardList[i].permalink_url+"'>"+heardList[i].title+"</a> uploaded by <a href='"+heardList[i].user.permalink_url+"'>"+heardList[i].user.username+"</a></p>");
+		$("#tracksHeard").append('<p><a onclick="playSong(\''+heardList[i].permalink_url+'\');">'+heardList[i].title+'</a> uploaded by <a target="_blank" href="'+heardList[i].user.permalink_url+'">'+heardList[i].user.username+'</a></p>');
 	}
 }
 
@@ -419,7 +420,8 @@ function addToLikedList(thisSong) {
 
 	$("#tracksLiked").html("");
 	for(var i = 0; i < likedList.length; i++) {
-		$("#tracksLiked").append("<p><a href='"+likedList[i].permalink_url+"'>"+likedList[i].title+"</a> uploaded by <a href='"+likedList[i].user.permalink_url+"'>"+likedList[i].user.username+"</a></p>");
+		//$("#tracksLiked").append("<p><a href='"+likedList[i].permalink_url+"'>"+likedList[i].title+"</a> uploaded by <a href='"+likedList[i].user.permalink_url+"'>"+likedList[i].user.username+"</a></p>");
+		$("#tracksLiked").append('<p><a onclick="playSong(\''+likedList[i].permalink_url+'\');">'+likedList[i].title+'</a> uploaded by <a target="_blank" href="'+likedList[i].user.permalink_url+'">'+likedList[i].user.username+'</a></p>');
 	}
 }
 
@@ -447,7 +449,9 @@ function initLikedList() {
 
 	$("#tracksLiked").html("");
 	for(var i = 0; i < likedList.length; i++) {
-		$("#tracksLiked").append("<p><a href='"+likedList[i].permalink_url+"'>"+likedList[i].title+"</a> uploaded by <a href='"+likedList[i].user.permalink_url+"'>"+likedList[i].user.username+"</a></p>");
+		//console.log(likedList[i]);
+		//$("#tracksLiked").append("<p><a href='"+likedList[i].permalink_url+"'>"+likedList[i].title+"</a> uploaded by <a href='"+likedList[i].user.permalink_url+"'>"+likedList[i].user.username+"</a></p>");
+		$("#tracksLiked").append('<p><a onclick="playSong(\''+likedList[i].permalink_url+'\');">'+likedList[i].title+'</a> uploaded by <a target="_blank" href="'+likedList[i].user.permalink_url+'">'+likedList[i].user.username+'</a></p>');
 	}
 }
 
@@ -463,6 +467,14 @@ function waveformClickForTooltip() {
 function waveformDestroyClickForTooltip() {
 	$("#waveform").tooltip("destroy");
 	$("#waveform").unbind("click");
+}
+
+function playSong(thisUrl) {
+	SC.get("/resolve", {url: thisUrl}, function(data) {
+		tracksArray.push(data);
+		trackNum = tracksArray.length - 2;
+		streamCallback();
+	});
 }
 
 
