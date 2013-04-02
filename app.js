@@ -8,21 +8,6 @@ app.get('/hello.txt', function(req, res){
   res.end(body);
 });
 
-/**
-app.get('/', function(req, res){
-  res.render('index', function(err, html){
-  	// ...
-	});
-});
-**/
-
-/**
-app.get('http://splicr.co/*',function(req,res){  
-    //res.redirect('http://'+req.url)
-    res.redirect('http://www.splicr.co');
-});
-**/
-
 app.get('/track', function(req, res) {
 	res.setHeader('Content-Type', 'text/html');
 	var title = req.query.title;
@@ -49,6 +34,23 @@ app.get('/track', function(req, res) {
 			 "<meta property='cookbook:author' content='http://samples.ogp.me/390580850990722' />");
 	}
 
+});
+
+//minify
+var compressor = require('node-minify');
+new compressor.minify({
+	type: 'yui-js',
+	fileIn: 'public/js/music.js',
+	fileOut: 'public/js/music-min.js',
+	callback: function(err){
+	}
+});
+new compressor.minify({
+	type: 'yui-js',
+	fileIn: 'public/js/facebook.js',
+	fileOut: 'public/js/facebook-min.js',
+	callback: function(err){
+	}
 });
 
 app.use(express.bodyParser());
